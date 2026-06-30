@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Blog() {
     const posts = [
         { id: 1, title: "First Post", content: "This is the first post." },
@@ -11,10 +13,12 @@ export default function Blog() {
       </h1>
       <ul>
         {posts.map((post) => (
-          <li key={post.id}>
-            <h2 className="text-xl font-semibold">{post.title}</h2>
-            <p>{post.content}</p>
-          </li>
+            <Link href={`/blog/${post.id}`} key={post.id} >
+                <li key={post.id}  >
+                    <h2 className="text-xl font-semibold">{post.title}</h2>
+                    <p>{post.content}</p>
+                </li>
+            </Link>
         ))}
       </ul>
     </div>
