@@ -1,26 +1,19 @@
 import Link from "next/link";
+import Posts from "./components/posts";
+import { Suspense } from "react";
 
-export default function Blog() {
-    const posts = [
-        { id: 1, title: "First Post", content: "This is the first post." },
-        { id: 2, title: "Second Post", content: "This is the second post." },
-        { id: 3, title: "Third Post", content: "This is the third post." },
-    ];
+export default async function Blog() {
+    const promise = fetch("https://jsonplaceholder.typicode.com/posts").then((res) => res.json());
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">
+      <h1 className="text-3xl font-bold underline text-center my-12">
         Blog Page
       </h1>
-      <ul>
-        {posts.map((post) => (
-            <Link href={`/blog/${post.id}`} key={post.id} >
-                <li key={post.id}  >
-                    <h2 className="text-xl font-semibold">{post.title}</h2>
-                    <p>{post.content}</p>
-                </li>
-            </Link>
-        ))}
-      </ul>
+        {/* <div > */}
+            <Suspense fallback={<div>Loading posts...</div>}>
+                <Posts promise={promise} />
+            </Suspense>
+        {/* </div> */}
     </div>
   );
 }
