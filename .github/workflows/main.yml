@@ -8,6 +8,10 @@ jobs:
   build-cache-artifact:
     runs-on: ubuntu-latest
 
+    concurrency:
+      group: Handle Concurency
+      cancel-in-progress: true
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
@@ -29,4 +33,7 @@ jobs:
         with:
           name: nextjs-build
           path: out/
+
+      - name: Deploy Project
+        run: echo 'deploy project'
           
